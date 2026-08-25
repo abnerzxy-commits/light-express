@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="把「光通訊 × CPO」硬核研究筆記翻譯成小學生也看得懂的故事：銅牆、光波導、CPO 搬家比喻、台灣供應鏈與小測驗。">
+<meta property="og:title" content="光的快遞：電腦為什麼要學會用光說話？">
+<meta property="og:description" content="小學生也懂的 CPO 科普——看完就能看懂大人的光通訊研究筆記。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💡</text></svg>">
+<title>光的快遞</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ───────── 主題 token ───────── */
+:root{
+  --bg:#FFFDF6;          /* 米白畫紙 */
+  --card:#FFFFFF;
+  --ink:#22283F;         /* 深藍墨 */
+  --muted:#6B7186;
+  --line:#E5E0D2;
+  --light:#0099BB;       /* 光訊號＝青 */
+  --light-soft:#E0F5F9;
+  --elec:#F0731F;        /* 電訊號＝橘 */
+  --elec-soft:#FDEBDC;
+  --pop:#7B5CD6;         /* 點綴紫 */
+  --pop-soft:#EFEAFB;
+  --ok:#2E9E5B; --ok-soft:#E3F4E9;
+  --warn-soft:#FFF3D6;
+  --shadow:0 2px 0 rgba(34,40,63,.08), 0 12px 28px rgba(34,40,63,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12172B; --card:#1B2140; --ink:#E8EAF4; --muted:#9AA1BC;
+    --line:#2C3358; --light:#3EC9E8; --light-soft:#12384A;
+    --elec:#FF9A52; --elec-soft:#46301C; --pop:#A78BFA; --pop-soft:#2E2A52;
+    --ok:#4CC97E; --ok-soft:#1C3A2A; --warn-soft:#3D3420;
+    --shadow:0 2px 0 rgba(0,0,0,.3), 0 14px 32px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12172B; --card:#1B2140; --ink:#E8EAF4; --muted:#9AA1BC;
+  --line:#2C3358; --light:#3EC9E8; --light-soft:#12384A;
+  --elec:#FF9A52; --elec-soft:#46301C; --pop:#A78BFA; --pop-soft:#2E2A52;
+  --ok:#4CC97E; --ok-soft:#1C3A2A; --warn-soft:#3D3420;
+  --shadow:0 2px 0 rgba(0,0,0,.3), 0 14px 32px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Heiti TC",sans-serif;
+  font-size:17px; line-height:1.85; -webkit-text-size-adjust:100%;
+}
+.num{font-family:"Baloo 2","Noto Sans TC",sans-serif}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+section{padding:44px 0 8px}
+
+/* ───────── 章節標籤 ───────── */
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--pop-soft);color:var(--pop);
+  font-weight:900;font-size:14px;letter-spacing:.14em;
+  padding:5px 14px;border-radius:999px;margin-bottom:12px;
+}
+h1{font-weight:900;font-size:clamp(30px,6.4vw,44px);line-height:1.3;text-wrap:balance}
+h2{font-weight:900;font-size:clamp(23px,4.6vw,30px);line-height:1.35;text-wrap:balance;margin-bottom:14px}
+h3{font-weight:700;font-size:19px;margin:22px 0 8px}
+p{margin:0 0 14px}
+p b{font-weight:700}
+.mut{color:var(--muted);font-size:14.5px}
+
+/* ───────── Hero ───────── */
+.hero{padding:56px 0 30px;text-align:left}
+.hero .sub{font-size:18px;color:var(--muted);margin-top:14px;max-width:34em}
+.hero-art{margin:26px 0 6px}
+
+/* ───────── 卡片 ───────── */
+.card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:20px;
+  padding:22px 22px 16px;margin:18px 0;box-shadow:var(--shadow);
+}
+.card.tint-light{background:var(--light-soft);border-color:transparent}
+.card.tint-elec{background:var(--elec-soft);border-color:transparent}
+.card.tint-pop{background:var(--pop-soft);border-color:transparent}
+.card.tint-warn{background:var(--warn-soft);border-color:transparent}
+
+/* 對話泡泡：小朋友提問 */
+.ask{
+  display:flex;gap:12px;align-items:flex-start;margin:24px 0 10px;
+}
+.ask .face{font-size:30px;line-height:1;flex:0 0 auto;transform:translateY(2px)}
+.ask .bubble{
+  background:var(--card);border:1.5px solid var(--line);
+  border-radius:4px 18px 18px 18px;padding:10px 16px;font-weight:700;
+  box-shadow:var(--shadow);
+}
+
+/* 圖說 */
+figure{margin:20px 0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:"Noto Sans TC","PingFang TC",sans-serif}
+
+/* 比較兩欄 */
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media (max-width:560px){.duel{grid-template-columns:1fr}}
+.duel .card{margin:0}
+.duel h3{margin-top:0}
+
+/* 名單格 */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media (max-width:560px){.team{grid-template-columns:1fr}}
+.member{
+  background:var(--card);border:1.5px solid var(--line);border-radius:16px;
+  padding:14px 16px 10px;box-shadow:var(--shadow);
+}
+.member .who{font-weight:900;font-size:16.5px}
+.member .job{
+  display:inline-block;background:var(--light-soft);color:var(--light);
+  font-size:12.5px;font-weight:700;border-radius:999px;padding:1px 10px;margin:4px 0 6px;
+}
+.member p{font-size:14.5px;margin-bottom:6px;line-height:1.7}
+
+/* 光束動畫 */
+.beam-demo{position:relative;overflow:hidden;border-radius:14px}
+@keyframes dash{to{stroke-dashoffset:-64}}
+.flow{stroke-dasharray:10 22;animation:dash 1.1s linear infinite}
+.flow.slow{animation-duration:2.6s}
+@media (prefers-reduced-motion: reduce){.flow{animation:none}}
+
+/* 字典 */
+dl.dict{margin:8px 0}
+dl.dict>div{
+  display:grid;grid-template-columns:9.5em 1fr;gap:10px;
+  padding:11px 4px;border-bottom:1px dashed var(--line);
+}
+@media (max-width:520px){dl.dict>div{grid-template-columns:1fr;gap:2px}}
+dt{font-weight:900}
+dt small{display:block;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.03em}
+dd{font-size:15.5px;line-height:1.75}
+
+/* 小測驗 */
+.quiz .q{font-weight:700;margin:16px 0 8px}
+.quiz .opts{display:flex;flex-wrap:wrap;gap:10px}
+.quiz button{
+  font:inherit;font-weight:700;font-size:15.5px;color:var(--ink);
+  background:var(--card);border:1.5px solid var(--line);border-radius:999px;
+  padding:8px 18px;cursor:pointer;box-shadow:var(--shadow);
+}
+.quiz button:hover{border-color:var(--pop)}
+.quiz button:focus-visible{outline:2.5px solid var(--pop);outline-offset:2px}
+.quiz button.yes{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.quiz button.no{background:var(--elec-soft);border-color:var(--elec);color:var(--elec)}
+.quiz .why{display:none;font-size:14.5px;color:var(--muted);margin-top:8px}
+.quiz .why.show{display:block}
+
+/* 結尾 */
+.outro{
+  text-align:center;padding:40px 0 64px;
+}
+.outro a{color:var(--light);font-weight:700}
+hr.wave{border:0;height:14px;margin:34px 0 8px;
+  background:radial-gradient(circle at 7px -4px, transparent 9px, var(--line) 9px, var(--line) 10.5px, transparent 11px) repeat-x;
+  background-size:22px 14px;opacity:.8}
+.foot-note{font-size:13px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+
+
+<main class="wrap">
+
+<!-- ─────────────── HERO ─────────────── -->
+<header class="hero">
+  <span class="chip">小學生也懂的科技課</span>
+  <h1>光的快遞：<br>電腦為什麼要學會用光說話？</h1>
+  <p class="sub">有一個大人的網站，講「光通訊」和「CPO」，看起來像天書。<br>這一頁把它翻譯成人話——看完你就知道那個網站在講什麼了。</p>
+
+  <figure class="hero-art beam-demo">
+    <svg viewBox="0 0 680 150" role="img" aria-label="一條發光的光纖，光點在裡面奔跑">
+      <rect x="0" y="0" width="680" height="150" rx="14" fill="var(--light-soft)"/>
+      <!-- 光纖 -->
+      <path d="M30 100 C 180 30, 300 130, 440 70 S 620 60, 655 78" fill="none" stroke="var(--card)" stroke-width="26" stroke-linecap="round"/>
+      <path d="M30 100 C 180 30, 300 130, 440 70 S 620 60, 655 78" fill="none" stroke="var(--light)" stroke-width="7" stroke-linecap="round" opacity=".35"/>
+      <path class="flow" d="M30 100 C 180 30, 300 130, 440 70 S 620 60, 655 78" fill="none" stroke="var(--light)" stroke-width="7" stroke-linecap="round"/>
+      <text x="36" y="40" font-size="15" font-weight="700" fill="var(--light)">光跑得飛快，一秒鐘繞地球 7 圈半</text>
+    </svg>
+  </figure>
+</header>
+
+<!-- ─────────────── 01 問題 ─────────────── -->
+<section>
+  <span class="chip">第 1 課</span>
+  <h2>AI 好餓，可是吸管太細了</h2>
+
+  <p>AI（就是會畫圖、會聊天的那種電腦）不是一台電腦，是<b>幾萬台電腦手牽手一起工作</b>。它們要一直互相講話：「我算好了！」「換你！」「答案傳給我！」</p>
+  <p>以前電腦之間用<b>銅線</b>講話——就是電線，跟你家牆壁裡的差不多。但現在出問題了：</p>
+
+  <div class="card tint-elec">
+    <p style="margin-bottom:6px"><b>AI 想吃的資料，每年多 75%。</b><br>銅線能送的資料，每年只多 20%。</p>
+    <p class="mut" style="margin-bottom:4px">就像小朋友一年比一年會吃，吸管卻幾乎沒變粗——再過幾年一定餵不飽。</p>
+  </div>
+
+  <p>而且銅線還有一個怪毛病：<b>你逼它送越快，它能跑的距離就越短</b>。大人的網站叫這個「銅牆」（Copper Wall）。快到某個程度，銅線連一個櫃子的高度（大約 2.2 公尺）都跑不完，訊號就糊掉了。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 250" role="img" aria-label="速度越快，銅線能跑的距離越短，最後只剩光做得到">
+      <rect x="0" y="0" width="680" height="250" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <text x="24" y="36" font-size="15" font-weight="900" fill="var(--ink)">銅線的煩惱：越快 → 越短命</text>
+      <!-- 機櫃線 -->
+      <line x1="70" y1="180" x2="640" y2="180" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="6 6"/>
+      <text x="72" y="172" font-size="12" fill="var(--muted)">機櫃高度 2.2 公尺（低於這條線＝不夠用）</text>
+      <!-- bars -->
+      <g font-size="13" font-weight="700">
+        <rect x="90"  y="70"  width="70" height="140" rx="8" fill="var(--elec)" opacity=".9"/>
+        <text x="125" y="230" text-anchor="middle" fill="var(--muted)">慢慢講</text>
+        <rect x="230" y="120" width="70" height="90" rx="8" fill="var(--elec)" opacity=".75"/>
+        <text x="265" y="230" text-anchor="middle" fill="var(--muted)">講快一點</text>
+        <rect x="370" y="168" width="70" height="42" rx="8" fill="var(--elec)" opacity=".6"/>
+        <text x="405" y="230" text-anchor="middle" fill="var(--muted)">講很快</text>
+        <rect x="510" y="192" width="70" height="18" rx="6" fill="var(--elec)" opacity=".45"/>
+        <text x="545" y="230" text-anchor="middle" fill="var(--muted)">超級快</text>
+        <text x="545" y="186" text-anchor="middle" font-size="12" fill="var(--elec)">跑不到櫃子高了！</text>
+      </g>
+      <text x="24" y="62" font-size="12.5" fill="var(--muted)">柱子高度＝銅線能把訊號送多遠</text>
+    </svg>
+    <figcaption>大人的網站有一張「Copper Wall 銅牆」圖，講的就是這件事：速度衝到 1.6T、3.2T 之後，銅線連機櫃都跑不完。</figcaption>
+  </figure>
+
+  <p>怎麼辦？换一種方式講話——<b>不用電，用光</b>。光跑得快、不發燙、跑多遠都不累。這整個題目，就叫<b>光通訊</b>。</p>
+</section>
+
+<!-- ─────────────── 02 光的水管 ─────────────── -->
+<section>
+  <span class="chip">第 2 課</span>
+  <h2>光的溜滑梯：光波導</h2>
+
+  <div class="ask"><span class="face">🧒</span><div class="bubble">光會到處亂噴耶，怎麼叫它乖乖走路？</div></div>
+
+  <p>幫它蓋一條<b>光的溜滑梯</b>！這種東西叫<b>光波導</b>（大人的網站說它是「光的水管」）。它的中間是一種特別的材料，光一進去就被「關」在裡面，只能沿著你畫好的路走，不會漏出去。玻璃裡、塑膠裡、晶片裡都能蓋。</p>
+
+  <div class="ask"><span class="face">🧒</span><div class="bubble">那光纖直接插到晶片上不就好了？</div></div>
+
+  <p>問題來了——<b>兩邊的洞差太多倍</b>。光纖的芯大約 9 微米，晶片裡的光路只有幾百「奈米」，差了幾十倍。硬接上去，就像<b>拿消防水管去接吸管</b>，水幾乎全噴出來、進不去。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 170" role="img" aria-label="漏斗把大水管的光慢慢縮小接進吸管">
+      <rect x="0" y="0" width="680" height="170" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <!-- 消防水管 -->
+      <rect x="30" y="55" width="150" height="60" rx="12" fill="var(--light-soft)" stroke="var(--light)" stroke-width="2.5"/>
+      <text x="105" y="140" font-size="13.5" font-weight="700" text-anchor="middle" fill="var(--muted)">光纖（粗）</text>
+      <!-- 漏斗 -->
+      <path d="M180 55 L 470 76 L 470 94 L 180 115 Z" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="325" y="140" font-size="13.5" font-weight="700" text-anchor="middle" fill="var(--pop)">漏斗＝光波導橋（SSC）</text>
+      <!-- 吸管 -->
+      <rect x="470" y="76" width="180" height="18" rx="9" fill="var(--light-soft)" stroke="var(--light)" stroke-width="2.5"/>
+      <text x="560" y="140" font-size="13.5" font-weight="700" text-anchor="middle" fill="var(--muted)">晶片裡的光路（超細）</text>
+      <!-- 光 -->
+      <path class="flow slow" d="M40 85 H 645" fill="none" stroke="var(--light)" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <figcaption>中間要放一個「漸漸變細的漏斗」，把光溫柔地從粗管導進細管。大人的網站叫它 <b>SSC（光斑尺寸轉換器）</b>——名字很兇，其實就是漏斗。</figcaption>
+  </figure>
+
+  <p>這個漏斗要對得<b>超級準</b>——差幾微米（頭髮的百分之一那麼細！）光就漏光了。所以「怎麼對準、怎麼對得又快又便宜」，變成大公司搶著解決的難題。記住這句，等一下講台灣隊的時候會用到。</p>
+</section>
+
+<!-- ─────────────── 03 拆開對講機 ─────────────── -->
+<section>
+  <span class="chip">第 3 課</span>
+  <h2>拆開一台「光的對講機」</h2>
+
+  <p>電腦本來只會「電」，不會「光」。所以每台電腦旁邊要裝一台<b>光的對講機</b>（大人叫它<b>光收發模組</b>），負責把電的話翻譯成光、再把光的話翻譯回電。拆開來裡面有四個角色：</p>
+
+  <div class="team">
+    <div class="member"><span class="who">🔦 手電筒</span><br><span class="job">雷射 LD</span>
+      <p>負責發光的源頭。有趣的是：晶片的主材料「矽」<b>天生不會發光</b>，所以手電筒要另外做、另外裝。</p></div>
+    <div class="member"><span class="who">✍️ 寫字的手</span><br><span class="job">調變器</span>
+      <p>把 0 和 1 「寫」進光裡——寫法就是讓光<b>一亮一暗</b>地閃，超級快地閃。這是整台對講機最關鍵的零件。</p></div>
+    <div class="member"><span class="who">👁️ 眼睛</span><br><span class="job">光偵測器 PD</span>
+      <p>對面照過來的光，由它負責「看」，把一亮一暗變回電的 0 和 1。</p></div>
+    <div class="member"><span class="who">🗣️ 翻譯官</span><br><span class="job">DSP 晶片</span>
+      <p>把訊號整理乾淨的聰明晶片。但它<b>超級耗電</b>——整台對講機的電幾乎都被它吃掉，大家一直想開除它。</p></div>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 680 130" role="img" aria-label="電訊號經過寫字的手變成光，再由眼睛變回電">
+      <rect x="0" y="0" width="680" height="130" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <text x="30" y="34" font-size="13" font-weight="900" fill="var(--elec)">■ 橘色＝電的世界</text>
+      <text x="200" y="34" font-size="13" font-weight="900" fill="var(--light)">■ 青色＝光的世界</text>
+      <path class="flow" d="M30 85 H 205" stroke="var(--elec)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <rect x="205" y="62" width="86" height="46" rx="10" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2"/>
+      <text x="248" y="90" font-size="14" font-weight="900" text-anchor="middle" fill="var(--pop)">✍️ 變光</text>
+      <path class="flow" d="M291 85 H 450" stroke="var(--light)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <rect x="450" y="62" width="86" height="46" rx="10" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2"/>
+      <text x="493" y="90" font-size="14" font-weight="900" text-anchor="middle" fill="var(--pop)">👁️ 變電</text>
+      <path class="flow" d="M536 85 H 650" stroke="var(--elec)" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <figcaption>大人網站裡那些複雜的訊號圖，骨架其實就這一條：電 → 寫進光 → 光飛過去 → 看到 → 變回電。（他們也真的用橘色代表電、青色代表光！）</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────────── 04 CPO ─────────────── -->
+<section>
+  <span class="chip">第 4 課・主角登場</span>
+  <h2>CPO 就是：搬家！</h2>
+
+  <div class="ask"><span class="face">🧒</span><div class="bubble">所以 CPO 到底是什麼啦？</div></div>
+
+  <p>想像電腦的大腦（晶片）是<b>老闆</b>，光的對講機是<b>翻譯官</b>。以前翻譯官坐在<b>大門口</b>，老闆每講一句話，都要用電順著長長的走廊傳到門口，才能翻成光送出去。走廊又長又耗電，跑快一點訊號還會糊掉。</p>
+  <p><b>CPO 的主意超簡單：把翻譯官搬到老闆隔壁坐！</b></p>
+  <p>把光的零件直接封進大腦晶片的同一個「包裝」裡，電只要走幾步路就變成光。這就是 CPO 三個字的意思——<b>Co-Packaged Optics，共同封裝光學</b>：「把光學零件包在一起」。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 330" role="img" aria-label="三代演進：走廊越來越短">
+      <rect x="0" y="0" width="680" height="330" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <!-- 第一代 -->
+      <g>
+        <text x="30" y="44" font-size="14.5" font-weight="900" fill="var(--ink)">第 1 代・翻譯官在大門口（可插拔模組）</text>
+        <rect x="30" y="58" width="76" height="40" rx="9" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2"/>
+        <text x="68" y="83" font-size="13.5" font-weight="900" text-anchor="middle" fill="var(--pop)">老闆</text>
+        <path class="flow slow" d="M106 78 H 520" stroke="var(--elec)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="520" y="58" width="90" height="40" rx="9" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="2"/>
+        <text x="565" y="83" font-size="13.5" font-weight="900" text-anchor="middle" fill="var(--elec)">翻譯官</text>
+        <text x="310" y="70" font-size="12" text-anchor="middle" fill="var(--elec)">電要走好～～～長的路（耗電 2 倍）</text>
+      </g>
+      <!-- 第二代 -->
+      <g>
+        <text x="30" y="150" font-size="14.5" font-weight="900" fill="var(--ink)">第 2 代・翻譯官搬進辦公室（板上光學）</text>
+        <rect x="30" y="164" width="76" height="40" rx="9" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2"/>
+        <text x="68" y="189" font-size="13.5" font-weight="900" text-anchor="middle" fill="var(--pop)">老闆</text>
+        <path class="flow slow" d="M106 184 H 300" stroke="var(--elec)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="300" y="164" width="90" height="40" rx="9" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="2"/>
+        <text x="345" y="189" font-size="13.5" font-weight="900" text-anchor="middle" fill="var(--elec)">翻譯官</text>
+        <path class="flow" d="M390 184 H 645" stroke="var(--light)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- 第三代 -->
+      <g>
+        <text x="30" y="256" font-size="14.5" font-weight="900" fill="var(--ink)">第 3 代・翻譯官坐老闆隔壁（CPO！）</text>
+        <rect x="30" y="270" width="180" height="44" rx="11" fill="var(--pop-soft)" stroke="var(--pop)" stroke-width="2.5" stroke-dasharray="7 5"/>
+        <rect x="40" y="278" width="70" height="28" rx="7" fill="var(--card)" stroke="var(--pop)" stroke-width="2"/>
+        <text x="75" y="297" font-size="12.5" font-weight="900" text-anchor="middle" fill="var(--pop)">老闆</text>
+        <path class="flow" d="M110 292 H 128" stroke="var(--elec)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="128" y="278" width="72" height="28" rx="7" fill="var(--card)" stroke="var(--elec)" stroke-width="2"/>
+        <text x="164" y="297" font-size="12.5" font-weight="900" text-anchor="middle" fill="var(--elec)">翻譯官</text>
+        <path class="flow" d="M210 292 H 645" stroke="var(--light)" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <text x="222" y="266" font-size="12" fill="var(--pop)">同一個包裝裡！電只走兩步</text>
+      </g>
+    </svg>
+    <figcaption>三代演進只有一個重點：<b>橘色（電）的路越來越短，青色（光）越來越早接手</b>。NVIDIA 說 CPO 交換器比舊做法省電約 3.5 倍。</figcaption>
+  </figure>
+
+  <div class="card tint-light">
+    <p style="margin-bottom:6px"><b>但搬家也有缺點！</b>以前翻譯官（對講機）壞了，抽出來換一個就好，像換電池。現在跟老闆封在同一個包裝裡，<b>一個小零件壞掉，整顆超貴的晶片可能整個報廢</b>。</p>
+    <p class="mut" style="margin-bottom:4px">所以有些公司還在猶豫要不要跳到 CPO——這也是大人網站說「時程一直往後延到 2027～28 年」的原因之一。</p>
+  </div>
+</section>
+
+<!-- ─────────────── 05 兩隊比賽 ─────────────── -->
+<section>
+  <span class="chip">第 5 課</span>
+  <h2>兩支隊伍在比賽訂規則</h2>
+
+  <p>現在全世界最強的公司分成兩隊，搶著決定「以後大家的光要怎麼接」。誰的規則變成標準，誰的朋友圈就賺錢。</p>
+
+  <div class="duel">
+    <div class="card" style="border-color:var(--ok)">
+      <h3>💚 NVIDIA 隊：一條龍</h3>
+      <p style="font-size:15px">「全部我自己來！」晶片自己設計、光的零件自己挑、包裝找台積電。東西全套買、效果最好，但只能照它的規矩玩。</p>
+    </div>
+    <div class="card" style="border-color:var(--pop)">
+      <h3>💜 Meta＋Broadcom 隊：開放規則</h3>
+      <p style="font-size:15px">「大家一起訂規則！」規格公開，誰都能做零件來參加，壞了也比較好修。用人多勢眾對抗一條龍。</p>
+    </div>
+  </div>
+  <p class="mut">比賽還沒分出勝負。大人網站花很大篇幅比較兩隊用的技術（微環調變器、外置雷射……），你只要知道：<b>那些是兩隊各自選的兵器</b>。</p>
+</section>
+
+<!-- ─────────────── 06 台灣隊 ─────────────── -->
+<section>
+  <span class="chip">第 6 課</span>
+  <h2>台灣隊在裡面做什麼？</h2>
+
+  <p>這才是原網站的重頭戲——因為這場光的革命，<b>好多關鍵零件是台灣公司做的</b>。用班級分工來看：</p>
+
+  <div class="team">
+    <div class="member"><span class="who">台積電</span><br><span class="job">蓋房子的總工程師</span>
+      <p>把「光晶片＋電晶片」疊在一起封裝的平台（叫 COUPE）。老闆和翻譯官的「合署辦公室」就是它蓋的。</p></div>
+    <div class="member"><span class="who">大立光</span><br><span class="job">做眼鏡的</span>
+      <p>幫手機做鏡頭的功力拿來做<b>超迷你透鏡</b>，把光聚好、對準晶片。差 0.3 微米都不行。</p></div>
+    <div class="member"><span class="who">上詮、波若威、合聖</span><br><span class="job">排隊小老師（FAU）</span>
+      <p>把幾十根光纖<b>排整齊、黏好、對準</b>晶片的零件叫 FAU。還記得第 2 課的「對準難題」嗎？他們搶的就是那題——全機最貴的一段成本就在這裡。</p></div>
+    <div class="member"><span class="who">聯亞、聯鈞</span><br><span class="job">賣手電筒的</span>
+      <p>矽不會發光，雷射要外掛。做雷射光源的就是他們（還有美國的 Coherent、Lumentum）。</p></div>
+    <div class="member"><span class="who">鴻海</span><br><span class="job">組裝＋澆水降溫</span>
+      <p>把整台交換器組起來，還要負責液冷散熱——晶片太熱會當機，要用水幫它沖涼。</p></div>
+    <div class="member"><span class="who">旺矽、穎崴、鴻勁、致茂…</span><br><span class="job">監考老師</span>
+      <p>還記得「一個零件壞＝整顆報廢」嗎？所以每一顆都要考試，<b>抽考變全考</b>，考卷和考場設備全要換新——做檢測的公司大爆發。</p></div>
+  </div>
+
+  <div class="card tint-warn">
+    <p style="margin-bottom:6px">🍜 <b>一個好玩的數字：</b>NVIDIA 一台最新的光交換器裡面，塞了 <b class="num">1,024</b> 條光纖！像一大碗光做的麵線，還要專門的「理線盒」來梳頭髮，不然會打結。</p>
+  </div>
+
+  <p class="mut">提醒：原網站一開頭就寫了「這是技術整理，<b>不是投資建議</b>」——這一頁也一樣，是自然課不是理財課。很多公司現在賺的還不多，是大家在賭未來。</p>
+</section>
+
+<!-- ─────────────── 07 測驗 ─────────────── -->
+<section>
+  <span class="chip">下課前小考</span>
+  <h2>三題就好，敢不敢？</h2>
+
+  <div class="quiz card" id="quiz">
+    <div class="q">1️⃣ 為什麼電腦要改用光講話？</div>
+    <div class="opts" data-a="1">
+      <button type="button">因為光比較漂亮</button>
+      <button type="button">因為銅線又慢又跑不遠，餵不飽 AI</button>
+      <button type="button">因為電太貴了</button>
+    </div>
+    <p class="why">✅ 對！AI 的胃口每年長 75%，銅線只長 20%，而且越快跑越短——只好請光出馬。</p>
+
+    <div class="q">2️⃣ CPO 一句話是什麼意思？</div>
+    <div class="opts" data-a="2">
+      <button type="button">一種新的光纖材料</button>
+      <button type="button">很會算數學的晶片</button>
+      <button type="button">把光的翻譯官搬到老闆（晶片）隔壁一起打包</button>
+    </div>
+    <p class="why">✅ 沒錯！Co-Packaged Optics＝共同封裝光學。電走的路變超短，省電又飛快。</p>
+
+    <div class="q">3️⃣ 為什麼 CPO 時代「考試（檢測）」變超重要？</div>
+    <div class="opts" data-a="1">
+      <button type="button">因為零件跟晶片封在一起，一顆壞＝整顆報廢，只好每顆都考</button>
+      <button type="button">因為政府規定要考</button>
+      <button type="button">因為考試機器比較便宜</button>
+    </div>
+    <p class="why">✅ 答對了！所以做測試設備的公司才被大人們盯上。你已經比大部分大人懂 CPO 了。</p>
+  </div>
+</section>
+
+<!-- ─────────────── 字典 ─────────────── -->
+<section>
+  <span class="chip">隨身小字典</span>
+  <h2>回去看原網站時，對照這張表</h2>
+
+  <div class="card">
+    <dl class="dict">
+      <div><dt>光通訊<small>Optical I/O</small></dt><dd>用光代替電來傳資料的整門學問。</dd></div>
+      <div><dt>光波導<small>Waveguide</small></dt><dd>光的溜滑梯／水管，讓光乖乖沿路走。</dd></div>
+      <div><dt>SSC<small>光斑尺寸轉換器</small></dt><dd>消防水管接吸管用的「漏斗」。</dd></div>
+      <div><dt>PIC<small>光子晶片</small></dt><dd>光的處理工廠：裡面有寫字的手、眼睛和光路。</dd></div>
+      <div><dt>EIC<small>電晶片</small></dt><dd>電的那一半：計算和放大訊號的晶片。</dd></div>
+      <div><dt>調變器<small>Modulator</small></dt><dd>把 0/1 寫進光的「手」，讓光超快地一亮一暗。</dd></div>
+      <div><dt>雷射／ELS<small>外置光源</small></dt><dd>手電筒。「外置」＝故意裝在外面，怕熱、也方便壞了換新。</dd></div>
+      <div><dt>FAU<small>光纖陣列單元</small></dt><dd>把一排光纖排整齊、對準晶片的零件——台灣強項。</dd></div>
+      <div><dt>耦光<small>Coupling</small></dt><dd>「把光對準接進去」這個動作。全鏈最難最貴的一步。</dd></div>
+      <div><dt>DSP<small>數位訊號處理器</small></dt><dd>整理訊號的翻譯官，超耗電，大家想開除它。</dd></div>
+      <div><dt>CPO<small>共同封裝光學</small></dt><dd>把光引擎跟大腦晶片包進同一個封裝，電路最短。</dd></div>
+      <div><dt>光引擎<small>OE</small></dt><dd>翻譯官本人：PIC＋周邊小晶片組成的一小塊。</dd></div>
+    </dl>
+  </div>
+</section>
+
+<hr class="wave">
+
+<!-- ─────────────── 結尾 ─────────────── -->
+<footer class="outro">
+  <p style="font-size:19px;font-weight:900">🎓 恭喜下課！</p>
+  <p>現在回去看<a href="https://posheng28.github.io/CPO/" rel="noopener" target="_blank">原來那個大人的網站</a>，<br>你會發現每一章都認得了：銅牆、水管、漏斗、搬家、兩隊比賽、台灣隊、監考老師。</p>
+  <p class="foot-note" style="margin-top:18px">本頁是「光通訊 × CPO 全解」（posheng28.github.io/CPO）的兒童科普改寫版．數字與事實取自原站整理．僅供學習，不是投資建議 💡</p>
+</footer>
+
+</main>
+
+<script>
+document.querySelectorAll('#quiz .opts').forEach(function(g){
+  var right = parseInt(g.dataset.a, 10);
+  var btns = g.querySelectorAll('button');
+  btns.forEach(function(b, i){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('yes','no'); });
+      if (i === right){
+        b.classList.add('yes');
+        var why = g.nextElementSibling;
+        if (why) why.classList.add('show');
+        b.textContent = '⭕ ' + b.textContent.replace(/^[⭕❌] /,'');
+      } else {
+        b.classList.add('no');
+        b.textContent = '❌ ' + b.textContent.replace(/^[⭕❌] /,'');
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
