@@ -306,6 +306,16 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
 
   <p>還有一個隱藏版第三殺手：<b>孔銅斷裂（barrel crack）</b>。PTFE 系材料在「厚度方向」熱脹特別兇，板子每次冷熱循環，貫穿整板的細銅孔壁就被上下拉一次——拉久了會像金屬疲勞一樣斷掉。</p>
 
+  <h3>還有一個更隱形的麻煩：它會「亂縮」</h3>
+  <p>做電路板要疊上百層，<b>每一層的圖案都要跟上下層對得分毫不差</b>（這個動作叫「對位」）——像疊一百張描圖紙，每張的線都要剛好重疊。</p>
+  <p>麻煩的是，材料每經過一次加熱加壓都會縮一點。<b>玻纖布縮得像格子襯衫</b>：洗完會縮水，但直向橫向各縮多少比例固定，量一次就能整片一起補回來。<b>PTFE 縮得像麻糬</b>：沒有骨架撐著，這裡凹一點、那裡凸一點，每片、每次都縮得不一樣——沒有規律可以一次補償。</p>
+  <div class="card tint-light">
+    <p style="margin-bottom:6px"><b>產線的三個對策</b>（每一個都是錢）：</p>
+    <p style="margin-bottom:6px"><b>📷 邊看邊畫（LDI 逐區補償）</b>——不用固定的「印章」印圖案，改用雷射直接成像：先掃描這片板子實際歪成什麼樣，一小區一小區即時改圖再畫上去。像在會飄的紙上寫字，先看紙飄到哪再落筆。</p>
+    <p style="margin-bottom:6px"><b>🧘 先讓材料深呼吸（退火）</b>——每道工序前先低溫烘很久，把材料裡緊繃的內應力提前吐掉，免得它在關鍵時刻突然「鬆一下」走位。</p>
+    <p style="margin-bottom:4px"><b>🖼️ 硬骨架當畫框（錨定混壓）</b>——板子核心仍用含玻纖或石英布的硬層把尺寸「繃住」，軟軟的 PTFE 只當薄薄的表層。這跟下面第 ③ 招是親戚：混壓不只救翹曲，也救亂縮。</p>
+  </div>
+
   <h3>那為什麼還敢用？三招解法</h3>
   <div class="card">
     <p><b>① 塞沙子救熱脹</b>——方案本來就不是純 PTFE，是「PTFE＋二氧化矽填料」。大量超細陶瓷粉塞進去，把熱脹壓小、把材料撐硬。<b>填料型這三個字，就是解掉一半問題的答案。</b></p>
@@ -376,6 +386,13 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
       <button type="button">生鏽和褪色</button>
     </div>
     <p class="why">✅ 對！不沾＋熱脹失配→分層；脹縮不對稱＋材料軟→翹曲。解法：塞沙子、電漿打毛、對稱疊。</p>
+    <div class="q">5️⃣ 一樣會縮水，為什麼玻纖布不可怕、PTFE 很可怕？</div>
+    <div class="opts" data-a="1">
+      <button type="button">因為玻纖布根本不會縮</button>
+      <button type="button">玻纖縮得有規律，量一次就能整片補償；PTFE 像麻糬亂縮，要逐區邊看邊補</button>
+      <button type="button">因為 PTFE 比較貴</button>
+    </div>
+    <p class="why">✅ 對！可怕的從來不是「會縮」，是「縮得沒規律」——所以要上 LDI 逐區補償、退火、硬骨架錨定，成本層層往上疊。</p>
   </div>
 </section>
 
@@ -397,6 +414,10 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
       <div><dt>分層<small>Delamination</small></dt><dd>板子層與層脫膠分開。PTFE 不沾＋熱脹失配是主因。</dd></div>
       <div><dt>翹曲<small>Warpage</small></dt><dd>整片板子受熱彎掉，焊點跟著受力。疊構不對稱、材料太軟都會。</dd></div>
       <div><dt>CTE<small>熱膨脹係數</small></dt><dd>材料加熱後「長大」的速度。兩層 CTE 差太多＝互相拉扯的根源。</dd></div>
+      <div><dt>對位<small>Registration</small></dt><dd>上百層圖案要層層對齊的動作。材料亂縮＝對位惡夢。</dd></div>
+      <div><dt>LDI<small>雷射直接成像</small></dt><dd>不用固定光罩，先掃描板子實際變形，逐區即時修圖再用雷射畫線。</dd></div>
+      <div><dt>退火<small>Annealing</small></dt><dd>低溫慢烘讓材料把內應力先釋放掉，之後才不會突然走位。</dd></div>
+      <div><dt>冷流<small>Cold Flow</small></dt><dd>PTFE 受壓受熱會慢慢流動變形的特性，尺寸不穩的元凶之一。</dd></div>
       <div><dt>M 系列<small>M6/M7/M9…</small></dt><dd>覆銅板低損耗等級的排位，數字越大訊號損耗越低，M9 是目前最高段位。</dd></div>
       <div><dt>認證<small>Qualification</small></dt><dd>大客戶的入學考：材料樣品一輪輪測試，全過了才能量產出貨。</dd></div>
     </dl>
