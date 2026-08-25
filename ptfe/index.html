@@ -286,6 +286,41 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
   </figure>
 </section>
 
+
+<!-- 進階 -->
+<section>
+  <span class="chip">高年級加課 🎓</span>
+  <h2>大人吵架時講的兩個專有名詞</h2>
+  <p>如果你想聽懂工程師版的討論，只要記住兩個詞——上一課的「軟麻糬煩惱」，正式名字叫：</p>
+
+  <div class="duel">
+    <div class="card" style="border-color:var(--elec)">
+      <h3>💔 分層 Delamination</h3>
+      <p style="font-size:15px">板子的某兩層「脫膠分開」了。兩個原因夾攻：<b>①</b> PTFE 天生不沾，跟隔壁層本來就黏不牢；<b>②</b> 每種材料加熱後「長大」的幅度不同（叫 CTE 失配），一過高溫爐，兩層互相拉扯——黏得弱又被拉，就分家了。</p>
+    </div>
+    <div class="card" style="border-color:var(--pop)">
+      <h3>🥔 翹曲 Warpage</h3>
+      <p style="font-size:15px">整片板子彎掉，像烤壞的洋芋片。上下層脹縮不對稱就會彎；PTFE 又軟、受熱受壓還會慢慢「流動變形」（叫冷流），上百層疊起來對位跟著漂。板一彎，晶片焊點就受力，全部 NG。</p>
+    </div>
+  </div>
+
+  <p>還有一個隱藏版第三殺手：<b>孔銅斷裂（barrel crack）</b>。PTFE 系材料在「厚度方向」熱脹特別兇，板子每次冷熱循環，貫穿整板的細銅孔壁就被上下拉一次——拉久了會像金屬疲勞一樣斷掉。</p>
+
+  <h3>那為什麼還敢用？三招解法</h3>
+  <div class="card">
+    <p><b>① 塞沙子救熱脹</b>——方案本來就不是純 PTFE，是「PTFE＋二氧化矽填料」。大量超細陶瓷粉塞進去，把熱脹壓小、把材料撐硬。<b>填料型這三個字，就是解掉一半問題的答案。</b></p>
+    <p><b>② 電漿處理救不沾</b>——鑽完孔用電漿把孔壁表面「打毛」，銅才鍍得上去。這就是原文一直點名「除膠渣（Desmear）製程經驗」的原因：配方和參數是各家老師傅的祕方。</p>
+    <p><b>③ 對稱疊構救翹曲</b>——只讓最需要速度的幾層用 PTFE，其他用傳統材料，而且上下對稱著疊，讓脹縮互相抵銷。</p>
+  </div>
+
+  <h3>值得放在心上的三件事</h3>
+  <div class="card tint-pop">
+    <p><b>🏅 M9 是什麼？</b>原文一直出現的 M6、M9，是覆銅板「低損耗等級」的江湖排名——數字越大、訊號被吃掉越少。M9 就是目前排位賽的最高段位，PTFE 填料型材料是搶這個段位的選手之一。</p>
+    <p><b>🛡️ 傳統廠的反攻其實很聰明</b>——台光電們送認證的「樹脂摻 PTFE 微粉」是折衷方案：把不沾鍋磨成粉摻進熟悉的樹脂裡，電性拿到一部分、但保留幾十年熟練的壓合製程。這場比的不只是「誰的材料電性好」，而是「<b>誰的電性夠好而且做得出來</b>」。</p>
+    <p><b>📏 先例的量級差</b>——PTFE 多層板在雷達、通訊領域做了幾十年，但那是 4～20 層的世界；這次要挑戰的是 78～108 層混壓，<b>差了一個數量級，等於沒有前人考古題</b>。這就是「良率」二字貫穿整篇原文的原因。</p>
+  </div>
+</section>
+
 <!-- 06 -->
 <section>
   <span class="chip">第 6 課</span>
@@ -334,6 +369,13 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
       <button type="button">還沒！報告當時預計 7 月拍板，認證和良率也還要驗</button>
     </div>
     <p class="why">✅ 答對了！被點名只是入場券，拍板、認證、量產良率一關關過了才算數。</p>
+    <div class="q">4️⃣ PTFE 疊到上百層，工程師最怕的兩個專有名詞是？</div>
+    <div class="opts" data-a="0">
+      <button type="button">分層（Delamination）和翹曲（Warpage）</button>
+      <button type="button">當機和藍屏</button>
+      <button type="button">生鏽和褪色</button>
+    </div>
+    <p class="why">✅ 對！不沾＋熱脹失配→分層；脹縮不對稱＋材料軟→翹曲。解法：塞沙子、電漿打毛、對稱疊。</p>
   </div>
 </section>
 
@@ -352,6 +394,10 @@ hr.wave{border:0;height:14px;margin:34px 0 8px;
       <div><dt>介電損失<small>Df</small></dt><dd>訊號跑過材料時被「吃掉」多少。越低越好，PTFE 是資優生。</dd></div>
       <div><dt>混層壓合<small>Hybrid PCB</small></dt><dd>硬材料＋軟 PTFE 混著疊上百層再壓緊——千層蛋糕工藝，良率大考驗。</dd></div>
       <div><dt>二供<small>第二供應商</small></dt><dd>大客戶的第二家供應商。不是替補，是保險名單＝大聯盟門票。</dd></div>
+      <div><dt>分層<small>Delamination</small></dt><dd>板子層與層脫膠分開。PTFE 不沾＋熱脹失配是主因。</dd></div>
+      <div><dt>翹曲<small>Warpage</small></dt><dd>整片板子受熱彎掉，焊點跟著受力。疊構不對稱、材料太軟都會。</dd></div>
+      <div><dt>CTE<small>熱膨脹係數</small></dt><dd>材料加熱後「長大」的速度。兩層 CTE 差太多＝互相拉扯的根源。</dd></div>
+      <div><dt>M 系列<small>M6/M7/M9…</small></dt><dd>覆銅板低損耗等級的排位，數字越大訊號損耗越低，M9 是目前最高段位。</dd></div>
       <div><dt>認證<small>Qualification</small></dt><dd>大客戶的入學考：材料樣品一輪輪測試，全過了才能量產出貨。</dd></div>
     </dl>
   </div>
