@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>不沾鍋的逆襲</title>
+<meta name="description" content="把「台虹 PTFE 無布化」產業新聞翻譯成小學生也看得懂的故事：草蓆路、不沾鍋材料、千層蛋糕工藝與材料大戰。">
+<meta property="og:title" content="不沾鍋的逆襲：AI 電路板的材料大戰">
+<meta property="og:description" content="小學生也懂的 PTFE 無布化科普——看完就能看懂大人的產業新聞。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍳</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ───────── 主題 token ───────── */
+:root{
+  --bg:#FFFDF6;          /* 米白畫紙 */
+  --card:#FFFFFF;
+  --ink:#22283F;         /* 深藍墨 */
+  --muted:#6B7186;
+  --line:#E5E0D2;
+  --light:#0099BB;       /* 光訊號＝青 */
+  --light-soft:#E0F5F9;
+  --elec:#F0731F;        /* 電訊號＝橘 */
+  --elec-soft:#FDEBDC;
+  --pop:#7B5CD6;         /* 點綴紫 */
+  --pop-soft:#EFEAFB;
+  --ok:#2E9E5B; --ok-soft:#E3F4E9;
+  --warn-soft:#FFF3D6;
+  --shadow:0 2px 0 rgba(34,40,63,.08), 0 12px 28px rgba(34,40,63,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12172B; --card:#1B2140; --ink:#E8EAF4; --muted:#9AA1BC;
+    --line:#2C3358; --light:#3EC9E8; --light-soft:#12384A;
+    --elec:#FF9A52; --elec-soft:#46301C; --pop:#A78BFA; --pop-soft:#2E2A52;
+    --ok:#4CC97E; --ok-soft:#1C3A2A; --warn-soft:#3D3420;
+    --shadow:0 2px 0 rgba(0,0,0,.3), 0 14px 32px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12172B; --card:#1B2140; --ink:#E8EAF4; --muted:#9AA1BC;
+  --line:#2C3358; --light:#3EC9E8; --light-soft:#12384A;
+  --elec:#FF9A52; --elec-soft:#46301C; --pop:#A78BFA; --pop-soft:#2E2A52;
+  --ok:#4CC97E; --ok-soft:#1C3A2A; --warn-soft:#3D3420;
+  --shadow:0 2px 0 rgba(0,0,0,.3), 0 14px 32px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Noto Sans TC","PingFang TC","Heiti TC",sans-serif;
+  font-size:17px; line-height:1.85; -webkit-text-size-adjust:100%;
+}
+.num{font-family:"Baloo 2","Noto Sans TC",sans-serif}
+
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+section{padding:44px 0 8px}
+
+/* ───────── 章節標籤 ───────── */
+.chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--pop-soft);color:var(--pop);
+  font-weight:900;font-size:14px;letter-spacing:.14em;
+  padding:5px 14px;border-radius:999px;margin-bottom:12px;
+}
+h1{font-weight:900;font-size:clamp(30px,6.4vw,44px);line-height:1.3;text-wrap:balance}
+h2{font-weight:900;font-size:clamp(23px,4.6vw,30px);line-height:1.35;text-wrap:balance;margin-bottom:14px}
+h3{font-weight:700;font-size:19px;margin:22px 0 8px}
+p{margin:0 0 14px}
+p b{font-weight:700}
+.mut{color:var(--muted);font-size:14.5px}
+
+/* ───────── Hero ───────── */
+.hero{padding:56px 0 30px;text-align:left}
+.hero .sub{font-size:18px;color:var(--muted);margin-top:14px;max-width:34em}
+.hero-art{margin:26px 0 6px}
+
+/* ───────── 卡片 ───────── */
+.card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:20px;
+  padding:22px 22px 16px;margin:18px 0;box-shadow:var(--shadow);
+}
+.card.tint-light{background:var(--light-soft);border-color:transparent}
+.card.tint-elec{background:var(--elec-soft);border-color:transparent}
+.card.tint-pop{background:var(--pop-soft);border-color:transparent}
+.card.tint-warn{background:var(--warn-soft);border-color:transparent}
+
+/* 對話泡泡：小朋友提問 */
+.ask{
+  display:flex;gap:12px;align-items:flex-start;margin:24px 0 10px;
+}
+.ask .face{font-size:30px;line-height:1;flex:0 0 auto;transform:translateY(2px)}
+.ask .bubble{
+  background:var(--card);border:1.5px solid var(--line);
+  border-radius:4px 18px 18px 18px;padding:10px 16px;font-weight:700;
+  box-shadow:var(--shadow);
+}
+
+/* 圖說 */
+figure{margin:20px 0}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.6}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:"Noto Sans TC","PingFang TC",sans-serif}
+
+/* 比較兩欄 */
+.duel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+@media (max-width:560px){.duel{grid-template-columns:1fr}}
+.duel .card{margin:0}
+.duel h3{margin-top:0}
+
+/* 名單格 */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+@media (max-width:560px){.team{grid-template-columns:1fr}}
+.member{
+  background:var(--card);border:1.5px solid var(--line);border-radius:16px;
+  padding:14px 16px 10px;box-shadow:var(--shadow);
+}
+.member .who{font-weight:900;font-size:16.5px}
+.member .job{
+  display:inline-block;background:var(--light-soft);color:var(--light);
+  font-size:12.5px;font-weight:700;border-radius:999px;padding:1px 10px;margin:4px 0 6px;
+}
+.member p{font-size:14.5px;margin-bottom:6px;line-height:1.7}
+
+/* 光束動畫 */
+.beam-demo{position:relative;overflow:hidden;border-radius:14px}
+@keyframes dash{to{stroke-dashoffset:-64}}
+.flow{stroke-dasharray:10 22;animation:dash 1.1s linear infinite}
+.flow.slow{animation-duration:2.6s}
+@media (prefers-reduced-motion: reduce){.flow{animation:none}}
+
+/* 字典 */
+dl.dict{margin:8px 0}
+dl.dict>div{
+  display:grid;grid-template-columns:9.5em 1fr;gap:10px;
+  padding:11px 4px;border-bottom:1px dashed var(--line);
+}
+@media (max-width:520px){dl.dict>div{grid-template-columns:1fr;gap:2px}}
+dt{font-weight:900}
+dt small{display:block;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.03em}
+dd{font-size:15.5px;line-height:1.75}
+
+/* 小測驗 */
+.quiz .q{font-weight:700;margin:16px 0 8px}
+.quiz .opts{display:flex;flex-wrap:wrap;gap:10px}
+.quiz button{
+  font:inherit;font-weight:700;font-size:15.5px;color:var(--ink);
+  background:var(--card);border:1.5px solid var(--line);border-radius:999px;
+  padding:8px 18px;cursor:pointer;box-shadow:var(--shadow);
+}
+.quiz button:hover{border-color:var(--pop)}
+.quiz button:focus-visible{outline:2.5px solid var(--pop);outline-offset:2px}
+.quiz button.yes{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.quiz button.no{background:var(--elec-soft);border-color:var(--elec);color:var(--elec)}
+.quiz .why{display:none;font-size:14.5px;color:var(--muted);margin-top:8px}
+.quiz .why.show{display:block}
+
+/* 結尾 */
+.outro{
+  text-align:center;padding:40px 0 64px;
+}
+.outro a{color:var(--light);font-weight:700}
+hr.wave{border:0;height:14px;margin:34px 0 8px;
+  background:radial-gradient(circle at 7px -4px, transparent 9px, var(--line) 9px, var(--line) 10.5px, transparent 11px) repeat-x;
+  background-size:22px 14px;opacity:.8}
+.foot-note{font-size:13px;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+<header class="hero">
+  <span class="chip">小學生也懂的科技課・第 2 彈</span>
+  <h1>不沾鍋的逆襲：<br>AI 電路板的材料大戰</h1>
+  <p class="sub">新聞說「台虹搶進 PTFE 無布化新賽局」——每個字都認識，連起來看不懂？<br>這一頁翻譯成人話，看完你就知道大人在吵什麼了。</p>
+
+  <figure class="hero-art beam-demo">
+    <svg viewBox="0 0 680 150" role="img" aria-label="訊號在平滑的路上快速前進">
+      <rect x="0" y="0" width="680" height="150" rx="14" fill="var(--light-soft)"/>
+      <rect x="30" y="95" width="620" height="18" rx="9" fill="var(--card)"/>
+      <path class="flow" d="M40 104 H 640" fill="none" stroke="var(--light)" stroke-width="6" stroke-linecap="round"/>
+      <text x="36" y="42" font-size="15" font-weight="700" fill="var(--light)">訊號想要一條又平又滑的路——這就是整個故事</text>
+      <text x="36" y="66" font-size="13" fill="var(--muted)">主角：PTFE，就是你家不沾鍋塗層的那個「鐵氟龍」</text>
+    </svg>
+  </figure>
+</header>
+
+<!-- 01 -->
+<section>
+  <span class="chip">第 1 課</span>
+  <h2>電路板＝訊號的馬路</h2>
+  <p>AI 伺服器裡面，晶片跟晶片要瘋狂傳資料。資料走的「馬路」就是<b>電路板</b>，馬路的地基材料叫<b>覆銅板（CCL）</b>。</p>
+  <p>問題來了：AI 一代比一代快，新一代的規格要跑到<b>每秒 337G 以上</b>——車速越快，路面一點點不平都會出事。<b>最先撐不住的，是地基材料。</b></p>
+</section>
+
+<!-- 02 -->
+<section>
+  <span class="chip">第 2 課</span>
+  <h2>舊馬路的祕密：裡面鋪了一層「草蓆」</h2>
+  <p>傳統覆銅板的做法是：<b>樹脂（像膠水）＋玻璃纖維布（像編織的草蓆）</b>。布讓板子夠硬挺，幾十年來都這樣做。</p>
+  <p>但高速訊號有個怪毛病——它跑過「布的交叉格子」時會<b>顛簸</b>。因為布有經線緯線，路面材質一格一格不均勻，訊號忽快忽慢、越跑越糊。大人的說法叫<b>編織效應（Weave Effect）</b>。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 260" role="img" aria-label="編織路面讓訊號顛簸，平滑路面讓訊號穩定">
+      <rect x="0" y="0" width="680" height="260" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <text x="30" y="38" font-size="14.5" font-weight="900" fill="var(--elec)">草蓆路（有玻纖布）：格子讓訊號彈跳</text>
+      <g opacity=".55">
+        <rect x="30" y="52" width="620" height="52" rx="8" fill="var(--elec-soft)"/>
+        <g stroke="var(--elec)" stroke-width="1.2" opacity=".6">
+          <line x1="60" y1="52" x2="60" y2="104"/><line x1="120" y1="52" x2="120" y2="104"/>
+          <line x1="180" y1="52" x2="180" y2="104"/><line x1="240" y1="52" x2="240" y2="104"/>
+          <line x1="300" y1="52" x2="300" y2="104"/><line x1="360" y1="52" x2="360" y2="104"/>
+          <line x1="420" y1="52" x2="420" y2="104"/><line x1="480" y1="52" x2="480" y2="104"/>
+          <line x1="540" y1="52" x2="540" y2="104"/><line x1="600" y1="52" x2="600" y2="104"/>
+          <line x1="30" y1="70" x2="650" y2="70"/><line x1="30" y1="88" x2="650" y2="88"/>
+        </g>
+      </g>
+      <path class="flow slow" d="M40 78 q 15 -14 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0 t 30 0" fill="none" stroke="var(--elec)" stroke-width="5" stroke-linecap="round"/>
+      <text x="30" y="152" font-size="14.5" font-weight="900" fill="var(--light)">不沾鍋路（無布化）：又平又滑，訊號直直衝</text>
+      <rect x="30" y="166" width="620" height="52" rx="8" fill="var(--light-soft)"/>
+      <path class="flow" d="M40 192 H 640" fill="none" stroke="var(--light)" stroke-width="5" stroke-linecap="round"/>
+      <text x="30" y="244" font-size="12.5" fill="var(--muted)">「無布化」＝把草蓆抽掉，改用 PTFE＋超細沙（二氧化矽填料）鋪一條均勻的路</text>
+    </svg>
+    <figcaption>訊號速度慢的年代，格子顛一下沒感覺；跑到 337G 的年代，每一格都是坑洞。</figcaption>
+  </figure>
+</section>
+
+<!-- 03 -->
+<section>
+  <span class="chip">第 3 課</span>
+  <h2>主角登場：不沾鍋材料 PTFE</h2>
+  <div class="ask"><span class="face">🧒</span><div class="bubble">PTFE 是什麼？名字好難記！</div></div>
+  <p>你家一定有它——<b>PTFE 俗稱鐵氟龍，就是不沾鍋塗層的材料</b>。煎蛋不沾鍋，是因為它超級光滑、什麼都黏不住。</p>
+  <p>神奇的是，它對「電的訊號」也一樣溫柔：訊號跑過去<b>幾乎不被吃掉、不被拖慢</b>（大人的講法：極低介電常數、極低介電損失）。所以它一直是高速訊號材料的夢幻選項。</p>
+  <div class="card tint-light">
+    <p style="margin-bottom:6px"><b>無布化路線＝</b>不用玻璃纖維布，改用「PTFE 薄膜＋超細沙填料」鋪路。路面均勻，就沒有編織效應的坑洞。</p>
+    <p class="mut" style="margin-bottom:4px">原本大家以為下一代會用「M9 樹脂＋石英纖維布」（還是有布，只是布升級）。但 2026 年 6 月外資調研報告傳出：NVIDIA 下一代 Rubin 平台的關鍵背板，<b>風向轉向了無布化的 PTFE 方案</b>——整個供應鏈因此洗牌。</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <span class="chip">第 4 課</span>
+  <h2>台虹是誰？為什麼被點名？</h2>
+  <p><b>台虹（8039）</b>本來是做<b>軟板材料</b>的同學——就是手機裡那種可以彎來彎去的電路板。看起來跟 AI 伺服器的硬板材料是兩個世界。</p>
+  <p>但它多年偷偷練了一門獨門功夫：<b>氟素樹脂的塗佈和改性</b>——把不沾鍋家族的材料塗得又薄又均勻的本事。剛好，無布化路線最需要的就是這門功夫！</p>
+  <div class="duel">
+    <div class="card" style="border-color:var(--light)">
+      <h3>📡 產品線一：毫米波硬板</h3>
+      <p style="font-size:15px">鎖定 70GHz 以上的超高頻應用，主打無玻纖、訊號損耗超低。</p>
+    </div>
+    <div class="card" style="border-color:var(--pop)">
+      <h3>🤖 產品線二：AI 伺服器級覆銅板</h3>
+      <p style="font-size:15px">M9 等級的 PTFE 填料型覆銅板——就是搶 NVIDIA 認證的那一張門票。2025 年底進客戶驗證，現在還在認證＋蓋新產能的路上。</p>
+    </div>
+  </div>
+  <p>外資報告點名：台虹正在搶這個材料的<b>「全球第二供應商」</b>資格。第二供應商聽起來像替補，其實超重要——大客戶永遠要兩家以上供應商才安心，擠進名單就是大聯盟門票。</p>
+</section>
+
+<!-- 05 -->
+<section>
+  <span class="chip">第 5 課</span>
+  <h2>不沾鍋的罩門：太軟、會亂長大</h2>
+  <p>PTFE 電性一流，但當「建材」有三個缺點：<b>質地偏軟</b>（蓋高樓會晃）、<b>熱脹冷縮特別大</b>（一熱就變形）、<b>鑽孔後孔壁黏不牢</b>（水管接頭容易鬆）。</p>
+  <p>而 NVIDIA 這塊背板可能要疊到<b> 78 層、甚至 108 層</b>，還是傳統材料跟 PTFE 混著疊——像做一個 108 層的千層蛋糕，有的層是硬餅乾、有的層是軟麻糬，疊完不能歪、還要從頭鑽洞鑽到底不能糊。</p>
+
+  <figure>
+    <svg viewBox="0 0 680 230" role="img" aria-label="上百層混合材料像千層蛋糕，要鑽一個直直的洞">
+      <rect x="0" y="0" width="680" height="230" rx="14" fill="var(--card)" stroke="var(--line)" stroke-width="1.5"/>
+      <text x="30" y="36" font-size="14.5" font-weight="900" fill="var(--ink)">108 層千層蛋糕：硬餅乾＋軟麻糬混疊，還要鑽出筆直的洞</text>
+      <g>
+        <rect x="140" y="56" width="400" height="14" rx="3" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="1"/>
+        <rect x="140" y="72" width="400" height="14" rx="3" fill="var(--light-soft)" stroke="var(--light)" stroke-width="1"/>
+        <rect x="140" y="88" width="400" height="14" rx="3" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="1"/>
+        <rect x="140" y="104" width="400" height="14" rx="3" fill="var(--light-soft)" stroke="var(--light)" stroke-width="1"/>
+        <rect x="140" y="120" width="400" height="14" rx="3" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="1"/>
+        <rect x="140" y="136" width="400" height="14" rx="3" fill="var(--light-soft)" stroke="var(--light)" stroke-width="1"/>
+        <rect x="140" y="152" width="400" height="14" rx="3" fill="var(--elec-soft)" stroke="var(--elec)" stroke-width="1"/>
+      </g>
+      <line x1="340" y1="50" x2="340" y2="172" stroke="var(--pop)" stroke-width="6" stroke-linecap="round" stroke-dasharray="3 6"/>
+      <text x="352" y="62" font-size="12.5" fill="var(--pop)" font-weight="700">雷射鑽孔：要直、要乾淨</text>
+      <text x="140" y="196" font-size="12.5" fill="var(--muted)">橘層＝傳統硬材料　青層＝軟軟的 PTFE　→「混層壓合」良率是最大考題</text>
+      <text x="140" y="216" font-size="12.5" fill="var(--muted)">會這門手藝的同學：金像電、博智、新復興（壓合＋鑽孔除膠渣老師傅）</text>
+    </svg>
+    <figcaption>材料被選上只是開始——做得出來、良率夠高，才算真的贏。</figcaption>
+  </figure>
+</section>
+
+<!-- 06 -->
+<section>
+  <span class="chip">第 6 課</span>
+  <h2>比賽還沒完：三路人馬搶答案</h2>
+  <div class="team">
+    <div class="member"><span class="who">🥇 無布化陣營</span><br><span class="job">台虹（8039）</span>
+      <p>氟材料獨門功夫，搶第二供應商門票。同路潛在受惠：亞洲電材（4939）。</p></div>
+    <div class="member"><span class="who">🛡️ 傳統 CCL 大廠</span><br><span class="job">台光電・台燿・聯茂</span>
+      <p>不想被換掉！趕快把「樹脂摻 PTFE 粉」等改良配方送認證，用老交情守地盤。</p></div>
+    <div class="member"><span class="who">🐉 中國選手</span><br><span class="job">生益科技</span>
+      <p>布局 PTFE 較早，傳出有機會搶「第一供應商」。</p></div>
+    <div class="member"><span class="who">⚖️ 裁判</span><br><span class="job">NVIDIA</span>
+      <p>報告寫的時間點，預計 2026 年 7 月拍板最終方案——結果如何，要看最新新聞才知道。</p></div>
+  </div>
+  <div class="card tint-warn">
+    <p style="margin-bottom:6px">🍳 <b>一句話總結整篇新聞：</b>AI 跑太快，馬路裡的「草蓆」變成絆腳石；大家改押「不沾鍋材料」鋪路，本來做軟板的台虹因為會塗不沾鍋，突然拿到了大聯盟選秀門票——但選秀結果和量產良率，都還沒揭曉。</p>
+  </div>
+  <p class="mut">提醒：原文結尾寫得很清楚——僅供參考，<b>不構成投資建議</b>。這一頁也一樣，是自然課不是理財課。</p>
+</section>
+
+<!-- quiz -->
+<section>
+  <span class="chip">下課前小考</span>
+  <h2>三題就好，敢不敢？</h2>
+  <div class="quiz card" id="quiz">
+    <div class="q">1️⃣ PTFE 在你家最有名的用途是？</div>
+    <div class="opts" data-a="1">
+      <button type="button">雨傘的布料</button>
+      <button type="button">不沾鍋的塗層（鐵氟龍）</button>
+      <button type="button">蓋房子的水泥</button>
+    </div>
+    <p class="why">✅ 對！超光滑、什麼都不沾——對電訊號也一樣溫柔，所以變成高速材料的夢幻人選。</p>
+
+    <div class="q">2️⃣ 「無布化」是把什麼從電路板裡拿掉？</div>
+    <div class="opts" data-a="1">
+      <button type="button">銅</button>
+      <button type="button">玻璃纖維布（草蓆）</button>
+      <button type="button">樹脂膠水</button>
+    </div>
+    <p class="why">✅ 沒錯！布的編織格子會讓高速訊號顛簸（編織效應），抽掉布改鋪 PTFE＋超細沙，路就平了。</p>
+
+    <div class="q">3️⃣ 這場材料大戰的結果出來了嗎？</div>
+    <div class="opts" data-a="2">
+      <button type="button">出來了，台虹已拿下獨家供應</button>
+      <button type="button">出來了，確定不用 PTFE</button>
+      <button type="button">還沒！報告當時預計 7 月拍板，認證和良率也還要驗</button>
+    </div>
+    <p class="why">✅ 答對了！被點名只是入場券，拍板、認證、量產良率一關關過了才算數。</p>
+  </div>
+</section>
+
+<!-- dict -->
+<section>
+  <span class="chip">隨身小字典</span>
+  <h2>回去看原文時，對照這張表</h2>
+  <div class="card">
+    <dl class="dict">
+      <div><dt>覆銅板<small>CCL</small></dt><dd>電路板的地基材料：絕緣層＋銅箔。訊號的馬路路基。</dd></div>
+      <div><dt>玻纖布<small>Glass Fabric</small></dt><dd>板子裡的「草蓆」，讓板子硬挺，但格子會讓高速訊號顛簸。</dd></div>
+      <div><dt>編織效應<small>Weave Effect</small></dt><dd>訊號跑過布的交叉格子時忽快忽慢、變糊的毛病。</dd></div>
+      <div><dt>PTFE<small>聚四氟乙烯</small></dt><dd>鐵氟龍＝不沾鍋塗層。電訊號幾乎不損耗的夢幻材料。</dd></div>
+      <div><dt>無布化</dt><dd>不用玻纖布，改用 PTFE 薄膜＋填料鋪出均勻的訊號路面。</dd></div>
+      <div><dt>填料<small>Filler</small></dt><dd>混進 PTFE 的超細粉末（如二氧化矽＝超細沙），幫材料補強、調性質。</dd></div>
+      <div><dt>介電損失<small>Df</small></dt><dd>訊號跑過材料時被「吃掉」多少。越低越好，PTFE 是資優生。</dd></div>
+      <div><dt>混層壓合<small>Hybrid PCB</small></dt><dd>硬材料＋軟 PTFE 混著疊上百層再壓緊——千層蛋糕工藝，良率大考驗。</dd></div>
+      <div><dt>二供<small>第二供應商</small></dt><dd>大客戶的第二家供應商。不是替補，是保險名單＝大聯盟門票。</dd></div>
+      <div><dt>認證<small>Qualification</small></dt><dd>大客戶的入學考：材料樣品一輪輪測試，全過了才能量產出貨。</dd></div>
+    </dl>
+  </div>
+</section>
+
+<hr class="wave">
+
+<footer class="outro">
+  <p style="font-size:19px;font-weight:900">🎓 恭喜下課！</p>
+  <p>現在回去看原本那篇「台虹搶進 PTFE 新賽局」，<br>你會認得每一段：草蓆路、不沾鍋、選秀門票、千層蛋糕、還沒拍板。</p>
+  <p style="margin-top:16px">📚 上一課：<a href="https://abnerzxy-commits.github.io/light-express/">光的快遞——電腦為什麼要學會用光說話？</a></p>
+  <p class="foot-note" style="margin-top:18px">本頁改寫自公開產業貼文（台虹 PTFE／無布化議題）．事實與數字取自原文整理．僅供學習，不構成投資建議 🍳</p>
+</footer>
+
+</main>
+
+<script>
+document.querySelectorAll('#quiz .opts').forEach(function(g){
+  var right = parseInt(g.dataset.a, 10);
+  var btns = g.querySelectorAll('button');
+  btns.forEach(function(b, i){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('yes','no'); });
+      if (i === right){
+        b.classList.add('yes');
+        var why = g.nextElementSibling;
+        if (why) why.classList.add('show');
+        b.textContent = '⭕ ' + b.textContent.replace(/^[⭕❌] /,'');
+      } else {
+        b.classList.add('no');
+        b.textContent = '❌ ' + b.textContent.replace(/^[⭕❌] /,'');
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
